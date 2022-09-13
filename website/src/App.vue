@@ -2,8 +2,7 @@
 import { watch } from "vue";
 import { darkTheme } from "naive-ui";
 import { UseDark } from "@vueuse/components";
-import init, { hotp, totp, steam } from "./totp/totp_wasm";
-import wasmUrl from "./totp/totp_wasm_bg.wasm?url";
+import { init, hotp, totp, steam, wasmUrl } from "./totp";
 
 let initialized = $ref(false);
 let secret = $ref("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW");

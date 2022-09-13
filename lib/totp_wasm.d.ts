@@ -9,26 +9,26 @@
 export function hotp(k: Uint8Array, c: bigint, digits: number): string;
 /**
 * @param {string} secret
-* @param {bigint} t
+* @param {number} t
 * @param {number} digits
 * @param {number} tc
 * @returns {string}
 */
-export function totp(secret: string, t: bigint, digits: number, tc: number): string;
+export function totp(secret: string, t: number, digits: number, tc: number): string;
 /**
 * @param {string} secret
-* @param {bigint} t
+* @param {number} t
 * @returns {string}
 */
-export function steam(secret: string, t: bigint): string;
+export function steam(secret: string, t: number): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly hotp: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
-  readonly totp: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
-  readonly steam: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly totp: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+  readonly steam: (a: number, b: number, c: number, d: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_free: (a: number, b: number) => void;
