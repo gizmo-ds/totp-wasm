@@ -34,9 +34,8 @@ setInterval(() => (tr = tc - (timestamp() % tc)), 1000);
 watch($$(tr), (v) => {
   if (v === tc) updateValue();
 });
-watch($$(hotp_counter), () => {
-  updateValue();
-});
+watch($$(hotp_counter), () => updateValue());
+watch($$(secret), () => updateValue());
 </script>
 
 <template>
