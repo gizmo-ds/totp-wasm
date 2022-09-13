@@ -20,8 +20,8 @@ function updateValue() {
   if (!initialized) return;
   const t = timestamp();
   hotp_value = hotp(new TextEncoder().encode(secret), BigInt(hotp_counter), 6);
-  totp_value = totp(secret, BigInt(t), 6, tc);
-  steam_value = steam(secret, BigInt(t));
+  totp_value = totp(secret, t, 6, tc);
+  steam_value = steam(secret, t);
 }
 
 init(wasmUrl).then(() => {

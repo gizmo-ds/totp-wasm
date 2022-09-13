@@ -1,7 +1,7 @@
 extern crate wasm_bindgen;
 
-use base32::Alphabet::RFC4648;
 use base32::decode;
+use base32::Alphabet::RFC4648;
 use hmac::{Hmac, Mac};
 use sha1::Sha1;
 use wasm_bindgen::prelude::*;
@@ -11,7 +11,7 @@ type HmacSha1 = Hmac<Sha1>;
 const STEAM_CHARS: &[u8; 26] = b"23456789BCDFGHJKMNPQRTVWXY";
 
 #[wasm_bindgen]
-pub fn hotp(k: &[u8], c: u64, digits: u32) -> String {
+pub fn hotp(k: &[u8], c: u64, digits: usize) -> String {
   let mut h = HmacSha1::new_from_slice(k).unwrap();
   h.update(&c.to_be_bytes());
 
@@ -22,20 +22,21 @@ pub fn hotp(k: &[u8], c: u64, digits: u32) -> String {
 
   let result = u32::from_be_bytes(bytes) & 0x7FFFFFFF;
 
-  let code = result % (10_u32.pow(digits));
-  code.to_string()
+  let code = result % (10_u32.pow(digits as u32));
+  let code = format!("{:0>width$}", code, width = digits);
+  code
 }
 
 #[wasm_bindgen]
-pub fn totp(secret: &str, t: i64, digits: u32, tc: i32) -> String {
-  let c = ((t as f64) / (tc as f64)).floor() as u64;
+pub fn totp(secret: &str, t: f64, digits: usize, tc: i32) -> String {
+  let c = (t / (tc as f64)).floor() as u64;
   let k = decode(RFC4648 { padding: true }, secret).unwrap();
   hotp(&k, c, digits)
 }
 
 #[wasm_bindgen]
-pub fn steam(secret: &str, t: i64) -> String {
-  let c = ((t as f64) / (30 as f64)).floor() as u64;
+pub fn steam(secret: &str, t: f64) -> String {
+  let c = (t / (30 as f64)).floor() as u64;
   let k = decode(RFC4648 { padding: true }, secret).unwrap();
 
   let mut h = HmacSha1::new_from_slice(&k).unwrap();
@@ -72,13 +73,13 @@ mod tests {
 
   #[test]
   fn test_totp() {
-    let code = totp("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW", 1662681600, 6, 30);
+    let code = totp("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW", 1662681600 as f64, 6, 30);
     assert_eq!(code, "473526");
   }
 
   #[test]
   fn test_steam() {
-    let code = steam("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW", 1662681600);
+    let code = steam("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW", 1662681600 as f64);
     assert_eq!(code, "4PRPM");
   }
 }
