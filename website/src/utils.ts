@@ -12,3 +12,12 @@ export function randomInt(min: number, max: number) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function totpSearchParams(obj: Object) {
+  return Object.entries(obj)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value as string)}`
+    )
+    .join("&");
+}

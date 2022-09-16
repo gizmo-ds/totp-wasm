@@ -3,7 +3,7 @@ import { watch, computed } from "vue";
 import { darkTheme } from "naive-ui";
 import { UseDark } from "@vueuse/components";
 import { init, hotp, totp, steam, wasmUrl } from "./totp";
-import { generateSecret } from "./utils";
+import { generateSecret, totpSearchParams } from "./utils";
 import QrcodeVue from "qrcode.vue";
 
 let initialized = $ref(false);
@@ -49,12 +49,14 @@ watch($$(period), () => updateValue());
 let issuer = $ref("Example");
 let account = $ref("alice@google.com");
 const totp_uri = computed(() => {
-  const u = new URL(`otpauth://totp/${issuer}:${account}`);
-  u.searchParams.append("secret", secret);
-  u.searchParams.append("algorithm", "SHA1");
-  u.searchParams.append("digits", digits.toString());
-  u.searchParams.append("period", period.toString());
-  if (issuer && issuer != "") u.searchParams.append("issuer", issuer);
+  const u = new URL(`otpauth://totp/${encodeURIComponent(issuer)}:${account}`);
+  u.search = totpSearchParams({
+    secret,
+    algorithm: "SHA1",
+    digits: digits.toString(),
+    period: period.toString(),
+    issuer,
+  });
   return u.toString();
 });
 </script>
