@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { watch } from "vue";
+import { watch, computed } from "vue";
 import { darkTheme } from "naive-ui";
 import { UseDark } from "@vueuse/components";
 import { init, hotp, totp, steam, wasmUrl } from "./totp";
+import { generateSecret } from "./utils";
+import QrcodeVue from "qrcode.vue";
 
 let initialized = $ref(false);
-let secret = $ref("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW");
+let secret = $ref(generateSecret());
 let hotp_counter = $ref(123456);
-let tc = $ref(30);
+let period = $ref(30);
+let digits = $ref(6);
 
 let hotp_value = $ref("000000");
 let totp_value = $ref("000000");
@@ -18,8 +21,12 @@ const timestamp = () => Math.round(new Date().getTime() / 1000);
 function updateValue() {
   if (!initialized) return;
   const t = timestamp();
-  hotp_value = hotp(new TextEncoder().encode(secret), BigInt(hotp_counter), 6);
-  totp_value = totp(secret, t, 6, tc);
+  hotp_value = hotp(
+    new TextEncoder().encode(secret),
+    BigInt(hotp_counter),
+    digits
+  );
+  totp_value = totp(secret, t, digits, period);
   steam_value = steam(secret, t);
 }
 
@@ -28,14 +35,28 @@ init(wasmUrl).then(() => {
   updateValue();
 });
 
-let tr = $ref(tc - (timestamp() % tc));
-setInterval(() => (tr = tc - (timestamp() % tc)), 1000);
+let tr = $ref(period - (timestamp() % period));
+setInterval(() => (tr = period - (timestamp() % period)), 1000);
 
 watch($$(tr), (v) => {
-  if (v === tc) updateValue();
+  if (v === period) updateValue();
 });
 watch($$(hotp_counter), () => updateValue());
 watch($$(secret), () => updateValue());
+watch($$(digits), () => updateValue());
+watch($$(period), () => updateValue());
+
+let issuer = $ref("Example");
+let account = $ref("alice@google.com");
+const totp_uri = computed(() => {
+  const u = new URL(`otpauth://totp/${issuer}:${account}`);
+  u.searchParams.append("secret", secret);
+  u.searchParams.append("algorithm", "SHA1");
+  u.searchParams.append("digits", digits.toString());
+  u.searchParams.append("period", period.toString());
+  if (issuer && issuer != "") u.searchParams.append("issuer", issuer);
+  return u.toString();
+});
 </script>
 
 <template>
@@ -56,31 +77,54 @@ watch($$(secret), () => updateValue());
           <div class="content">
             <n-space vertical>
               <n-input-group>
-                <n-input-group-label>Secret Key</n-input-group-label>
+                <n-input-group-label style="width: 120px">
+                  Secret Key
+                </n-input-group-label>
                 <n-input v-model:value="secret" type="text" clearable />
+                <n-button type="primary" @click="secret = generateSecret()">
+                  Generate
+                </n-button>
               </n-input-group>
 
               <n-input-group>
-                <n-input-group-label>HOTP Counter</n-input-group-label>
+                <n-input-group-label style="width: 120px">
+                  Digits
+                </n-input-group-label>
+                <n-input-number
+                  v-model:value="digits"
+                  :max="9"
+                  style="width: 100%"
+                />
+              </n-input-group>
+
+              <n-input-group>
+                <n-input-group-label style="width: 120px">
+                  Period
+                </n-input-group-label>
+                <n-input-number v-model:value="period" style="width: 100%">
+                  <template #suffix> sec </template>
+                </n-input-number>
+              </n-input-group>
+
+              <n-input-group>
+                <n-input-group-label style="width: 120px">
+                  HOTP Counter
+                </n-input-group-label>
                 <n-input-number
                   v-model:value="hotp_counter"
                   :show-button="false"
                   style="width: 100%"
                 />
               </n-input-group>
-
-              <n-input-group>
-                <n-input-group-label>TC</n-input-group-label>
-                <n-input-number v-model:value="tc" style="width: 100%">
-                  <template #suffix> sec </template>
-                </n-input-number>
-              </n-input-group>
             </n-space>
 
             <n-divider />
 
             <n-space vertical>
-              <n-progress type="line" :percentage="Math.round((tr / tc) * 100)">
+              <n-progress
+                type="line"
+                :percentage="Math.round((tr / period) * 100)"
+              >
                 {{ tr }} sec
               </n-progress>
 
@@ -88,37 +132,50 @@ watch($$(secret), () => updateValue());
                 <n-input-group-label style="width: 120px">
                   HOTP Value
                 </n-input-group-label>
-                <n-input
-                  v-model:value="hotp_value"
-                  type="text"
-                  readonly
-                  style="width: 100%"
-                />
+                <n-input v-model:value="hotp_value" type="text" readonly />
               </n-input-group>
 
               <n-input-group>
                 <n-input-group-label style="width: 120px">
                   TOTP Value
                 </n-input-group-label>
-                <n-input
-                  v-model:value="totp_value"
-                  type="text"
-                  readonly
-                  style="width: 100%"
-                />
+                <n-input v-model:value="totp_value" type="text" readonly />
               </n-input-group>
 
               <n-input-group>
                 <n-input-group-label style="width: 120px">
                   Steam Value
                 </n-input-group-label>
-                <n-input
-                  v-model:value="steam_value"
-                  type="text"
-                  readonly
-                  style="width: 100%"
-                />
+                <n-input v-model:value="steam_value" type="text" readonly />
               </n-input-group>
+            </n-space>
+
+            <n-divider />
+
+            <n-space vertical>
+              <n-input-group>
+                <n-input-group-label style="width: 120px">
+                  Issuer
+                </n-input-group-label>
+                <n-input v-model:value="issuer" type="text" clearable />
+              </n-input-group>
+
+              <n-input-group>
+                <n-input-group-label style="width: 120px">
+                  Account
+                </n-input-group-label>
+                <n-input v-model:value="account" type="text" clearable />
+              </n-input-group>
+
+              <div class="qrcode">
+                <qrcode-vue
+                  :value="totp_uri"
+                  render-as="svg"
+                  :size="300"
+                  :margin="3"
+                  level="L"
+                />
+              </div>
             </n-space>
           </div>
         </n-layout>
@@ -142,5 +199,9 @@ h1 {
 .content {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 8px;
+  .qrcode {
+    padding-top: 8px;
+  }
 }
 </style>
