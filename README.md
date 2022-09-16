@@ -1,6 +1,6 @@
 # totp-wasm
 
-HOTP & TOTP & Steam Guard TOTP
+HOTP([RFC 4226](https://tools.ietf.org/html/rfc4226)) & TOTP([RFC 6238](https://tools.ietf.org/html/rfc6238)) & Steam Guard TOTP
 
 ## Demo
 
