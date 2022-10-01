@@ -6,8 +6,10 @@ import { init, hotp, totp, steam, wasmUrl } from "./totp";
 import { generateSecret, totpSearchParams } from "./utils";
 import QrcodeVue from "qrcode.vue";
 
+const searchParams = new URL(location.href).searchParams
+
 let initialized = $ref(false);
-let secret = $ref(generateSecret());
+let secret = $ref(searchParams.get("secret") ?? generateSecret());
 let hotp_counter = $ref(123456);
 let period = $ref(30);
 let digits = $ref(6);
