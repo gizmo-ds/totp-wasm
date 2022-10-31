@@ -1,0 +1,14 @@
+.n-progress--line {
+    &>.n-progress-content {
+        &>.n-progress-graph {
+            &>.n-progress-graph-line {
+                &>.n-progress-graph-line-rail {
+                    &>.n-progress-graph-line-fill {
+                        transition: background-color .3s var(--n-bezier),
+                            max-width 1s linear;
+                    }
+                }
+            }
+        }
+    }
+}
