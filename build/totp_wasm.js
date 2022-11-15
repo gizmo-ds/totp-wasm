@@ -19,10 +19,6 @@ function passArray8ToWasm0(arg, malloc) {
     return ptr;
 }
 
-const u32CvtShim = new Uint32Array(2);
-
-const uint64CvtShim = new BigUint64Array(u32CvtShim.buffer);
-
 let cachedInt32Memory0 = new Int32Array();
 
 function getInt32Memory0() {
@@ -50,10 +46,7 @@ export function hotp(k, c, digits) {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
         const ptr0 = passArray8ToWasm0(k, wasm.__wbindgen_malloc);
         const len0 = WASM_VECTOR_LEN;
-        uint64CvtShim[0] = c;
-        const low1 = u32CvtShim[0];
-        const high1 = u32CvtShim[1];
-        wasm.hotp(retptr, ptr0, len0, low1, high1, digits);
+        wasm.hotp(retptr, ptr0, len0, c, digits);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         return getStringFromWasm0(r0, r1);
@@ -209,12 +202,15 @@ function finalizeInit(instance, module) {
     return wasm;
 }
 
-function initSync(bytes) {
+function initSync(module) {
     const imports = getImports();
 
     initMemory(imports);
 
-    const module = new WebAssembly.Module(bytes);
+    if (!(module instanceof WebAssembly.Module)) {
+        module = new WebAssembly.Module(module);
+    }
+
     const instance = new WebAssembly.Instance(module, imports);
 
     return finalizeInit(instance, module);

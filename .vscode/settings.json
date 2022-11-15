@@ -1,5 +1,5 @@
 {
   "deno.enable": true,
   "deno.unstable": true,
-  "deno.enablePaths": ["scripts", "lib/deno"]
+  "deno.enablePaths": ["scripts", "deno"]
 }
