@@ -1,0 +1,7 @@
+[workspace]
+members = ["totp-wasm"]
+
+[profile.release]
+lto = true
+opt-level = 's'
+panic = 'abort'

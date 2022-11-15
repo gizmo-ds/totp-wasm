@@ -1,12 +1,12 @@
+#![allow(non_upper_case_globals)]
 extern crate wasm_bindgen;
 
 use base32::decode;
 use base32::Alphabet::RFC4648;
 use hmac::{Hmac, Mac};
-use sha1::Sha1;
 use wasm_bindgen::prelude::*;
 
-type HmacSha1 = Hmac<Sha1>;
+type HmacSha1 = Hmac<sha1::Sha1>;
 
 const STEAM_CHARS: &[u8; 26] = b"23456789BCDFGHJKMNPQRTVWXY";
 
