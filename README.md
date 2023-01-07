@@ -9,16 +9,15 @@ HOTP([RFC 4226](https://tools.ietf.org/html/rfc4226)) & TOTP([RFC 6238](https://
 ## Prerequisites
 
 - [Rust](https://www.rust-lang.org)
-- [Deno](https://deno.land)
-- [wasm-bindgen-cli](https://rustwasm.github.io/wasm-bindgen/reference/cli.html)
-- [Binaryen](https://github.com/webassembly/binaryen)
-- \*[Node.js](https://nodejs.org) (Demo website)
-- \*[pnpm](https://pnpm.io) (Demo website)
+- [Node.js](https://nodejs.org)
 
 ## Build
 
 ```bash
-deno run -A scripts/build.ts
+rustup target add wasm32-unknown-unknown
+cargo install --version=0.2.83 wasm-bindgen-cli
+pnpm install
+node scripts/build.js
 ```
 
 ## Runing demo

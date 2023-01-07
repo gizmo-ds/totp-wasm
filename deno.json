@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "build": "deno run -A scripts/build.ts",
+    "build": "node scripts/build.js",
     "test": "deno test --allow-read deno/"
   }
 }

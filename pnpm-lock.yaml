@@ -1,0 +1,14 @@
+lockfileVersion: 5.4
+
+specifiers:
+  binaryen: ^111.0.0
+
+devDependencies:
+  binaryen: 111.0.0
+
+packages:
+
+  /binaryen/111.0.0:
+    resolution: {integrity: sha512-PEXOSHFO85aj1aP4t+KGzvxQ00qXbjCysWlsDjlGkP1e9owNiYdpEkLej21Ax8LDD7xJ01rEmJDqZ/JPoW2GXw==}
+    hasBin: true
+    dev: true
