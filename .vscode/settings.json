@@ -1,5 +1,5 @@
 {
   "deno.enable": true,
   "deno.unstable": true,
-  "deno.enablePaths": ["scripts", "deno"]
+  "deno.enablePaths": ["packages/totp-wasm/deno", "examples/deno"]
 }

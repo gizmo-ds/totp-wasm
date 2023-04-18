@@ -1,14 +1,20 @@
 {
   "name": "totp-wasm",
   "version": "1.0.0",
-  "description": "",
+  "description": "HOTP & TOTP & Steam Guard TOTP ",
   "main": "index.js",
   "scripts": {
-    "build": "node scripts/build.js"
+    "build": "cd examples/browser && pnpm run build",
+    "build:wasm": "node scripts/build.mjs",
+    "test:deno": "deno test --allow-read examples/deno/"
   },
   "keywords": [],
   "author": "Gizmo",
   "license": "MIT",
+  "workspaces": [
+    "packages/totp-wasm",
+    "examples/browser"
+  ],
   "devDependencies": {
     "binaryen": "^111.0.0"
   }

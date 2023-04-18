@@ -1,0 +1,8 @@
+{
+  "name": "totp-wasm",
+  "version": "1.0.0",
+  "description": "HOTP & TOTP & Steam Guard TOTP ",
+  "main": "index.js",
+  "author": "Gizmo",
+  "license": "MIT"
+}
