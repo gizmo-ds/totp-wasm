@@ -2,7 +2,7 @@
 import { watch, computed } from "vue";
 import { darkTheme } from "naive-ui";
 import { UseDark } from "@vueuse/components";
-import { init, hotp, totp, steam, wasmUrl } from "./totp";
+import { init, hotp, totp, steam, wasm_url } from "./totp";
 import { generateSecret, totpSearchParams } from "./utils";
 import QrcodeVue from "qrcode.vue";
 
@@ -32,7 +32,7 @@ function updateValue() {
   steam_value = steam(secret, t);
 }
 
-init(wasmUrl).then(() => {
+init(wasm_url).then(() => {
   initialized = true;
   updateValue();
 });
