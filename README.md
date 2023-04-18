@@ -17,13 +17,13 @@ HOTP([RFC 4226](https://tools.ietf.org/html/rfc4226)) & TOTP([RFC 6238](https://
 rustup target add wasm32-unknown-unknown
 cargo install --version=0.2.83 wasm-bindgen-cli
 pnpm install
-node scripts/build.js
+node scripts/build.mjs
 ```
 
-## Runing demo
+## Runing examples
 
 ```bash
-cd website
+cd examples/browser
 pnpm install
 pnpm dev
 ```
