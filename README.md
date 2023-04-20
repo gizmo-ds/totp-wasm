@@ -11,6 +11,31 @@ HOTP([RFC 4226](https://tools.ietf.org/html/rfc4226)) & TOTP([RFC 6238](https://
 - [Rust](https://www.rust-lang.org)
 - [Node.js](https://nodejs.org)
 
+## Usage
+
+### Deno
+
+```typescript
+import {
+  totp,
+  init,
+  wasm_data,
+} from 'https://deno.land/x/totp_wasm/deno/mod.ts'
+
+await init(wasm_data)
+const code = totp('GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW', 1662681600, 6, 30)
+console.log(code)
+// 473526
+```
+
+### Browser
+
+[example](./examples/browser)
+
+### Node.js
+
+[example](./examples/node)
+
 ## Build
 
 ```bash
