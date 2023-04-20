@@ -750,7 +750,7 @@ packages:
     engines: {node: '>=0.11'}
     dev: true
 
-  /debug@4.3.4(supports-color@8.1.1):
+  /debug@4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
     peerDependencies:
@@ -760,7 +760,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
-      supports-color: 8.1.1
     dev: true
 
   /dom-serializer@1.4.1:
@@ -1100,11 +1099,6 @@ packages:
       is-glob: 4.0.3
     dev: true
 
-  /has-flag@4.0.0:
-    resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
-    engines: {node: '>=8'}
-    dev: true
-
   /has@1.0.3:
     resolution: {integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==}
     engines: {node: '>= 0.4.0'}
@@ -1413,13 +1407,6 @@ packages:
       acorn: 8.8.2
     dev: true
 
-  /supports-color@8.1.1:
-    resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
-    engines: {node: '>=10'}
-    dependencies:
-      has-flag: 4.0.0
-    dev: true
-
   /supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
@@ -1520,7 +1507,7 @@ packages:
       '@antfu/utils': 0.5.2
       '@rollup/pluginutils': 4.2.1
       chokidar: 3.5.3
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.4
       fast-glob: 3.2.12
       local-pkg: 0.4.3
       magic-string: 0.26.7
