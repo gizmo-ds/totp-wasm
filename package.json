@@ -13,7 +13,8 @@
   "license": "MIT",
   "workspaces": [
     "packages/totp-wasm",
-    "examples/browser"
+    "examples/browser",
+    "examples/node"
   ],
   "devDependencies": {
     "binaryen": "^111.0.0"
