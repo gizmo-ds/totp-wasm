@@ -53,6 +53,13 @@ pnpm install
 pnpm dev
 ```
 
+# Related Projects
+
+Here are some related projects that you may find useful:
+
+- [totp-wasm-zig](https://github.com/gizmo-ds/totp-wasm-zig): Zig implementation of this project.
+- [UdonOTPLib](https://github.com/gizmo-ds/UdonOTPLib): C# implementation for the VRChat game.
+
 ## License
 
 Code is distributed under [MIT](./LICENSE) license, feel free to use it in your proprietary projects as well.
