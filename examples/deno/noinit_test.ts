@@ -1,5 +1,5 @@
 import { assertEquals } from './deps.ts'
-import { loadAndInit, hotp, totp, steam } from './noinit.ts'
+import { loadAndInit, hotp, totp, steam_guard } from './noinit.ts'
 
 const s2b = (s: string) => new TextEncoder().encode(s)
 
@@ -20,8 +20,8 @@ Deno.test('WASM noinit', async (t) => {
     assertEquals(code, '473526')
   })
 
-  await t.step('Steam', () => {
-    const code = steam(test_key, 1662681600)
+  await t.step('Steam Guard', () => {
+    const code = steam_guard(test_key, 1662681600)
     assertEquals(code, '4PRPM')
   })
 })

@@ -1,4 +1,4 @@
-import { init, hotp, totp, steam } from '../../packages/totp-wasm'
+import { init, hotp, totp, steam_guard } from '../../packages/totp-wasm'
 import { readFileSync } from 'node:fs'
 import { equal } from 'node:assert'
 
@@ -15,5 +15,5 @@ const test_t = 1662681600
 
   equal(hotp(s2b(test_key), BigInt(test_t), 6), '886679')
   equal(totp(test_key, test_t, 6, 30), '473526')
-  equal(steam(test_key, test_t), '4PRPM')
+  equal(steam_guard(test_key, test_t), '4PRPM')
 })()

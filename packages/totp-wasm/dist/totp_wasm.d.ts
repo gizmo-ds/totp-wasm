@@ -20,7 +20,7 @@ export function totp(secret: string, t: number, digits: number, tc: number): str
 * @param {number} t
 * @returns {string}
 */
-export function steam(secret: string, t: number): string;
+export function steam_guard(secret: string, t: number): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
@@ -28,7 +28,7 @@ export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly hotp: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly totp: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
-  readonly steam: (a: number, b: number, c: number, d: number) => void;
+  readonly steam_guard: (a: number, b: number, c: number, d: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_free: (a: number, b: number) => void;

@@ -35,7 +35,7 @@ pub fn totp(secret: &str, t: f64, digits: usize, tc: i32) -> String {
 }
 
 #[wasm_bindgen]
-pub fn steam(secret: &str, t: f64) -> String {
+pub fn steam_guard(secret: &str, t: f64) -> String {
   let c = (t / (30 as f64)).floor() as u64;
   let k = decode(RFC4648 { padding: true }, secret).unwrap();
 
@@ -78,8 +78,8 @@ mod tests {
   }
 
   #[test]
-  fn test_steam() {
-    let code = steam("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW", 1662681600 as f64);
+  fn test_steam_guard() {
+    let code = steam_guard("GM4VC2CQN5UGS33ZJJVWYUSFMQ4HOQJW", 1662681600 as f64);
     assert_eq!(code, "4PRPM");
   }
 }
