@@ -1,0 +1,6 @@
+{
+  "name": "@gizmo-ds/totp-wasm",
+  "version": "0.1.2",
+  "exports": "./index.ts",
+  "include": ["dist/**"]
+}
