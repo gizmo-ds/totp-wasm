@@ -36,6 +36,10 @@ console.log(code)
 
 [example](./examples/node)
 
+### Bun
+
+[example](./examples/bun)
+
 ## Build
 
 ```bash
