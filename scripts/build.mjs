@@ -13,7 +13,5 @@ execSync(
 
 const wasm_file = `${out_dir}/totp_wasm_bg.wasm`
 const wasm_data = readFileSync(wasm_file).toString('base64')
-const deno_loader = `// @ts-nocheck
-export default "${wasm_data}";
-`
-writeFileSync(`${out_dir}/wasm_data.js`, deno_loader)
+writeFileSync(`${out_dir}/wasm_data.js`, "// @ts-nocheck\nexport const wasm_data = \"" + wasm_data + "\";\n")
+writeFileSync(`${out_dir}/wasm_data.d.ts`, "export const wasm_data: string\n")

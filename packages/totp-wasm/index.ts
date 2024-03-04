@@ -1,3 +1,3 @@
 export { hotp, totp, steam_guard } from './dist/totp_wasm'
-import * as totp from './dist/totp_wasm'
-export const init = totp.default
+export { default as init } from './dist/totp_wasm'
+export { wasm_data } from './dist/wasm_data'
