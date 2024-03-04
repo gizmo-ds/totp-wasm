@@ -23,6 +23,47 @@ console.log(code)
 // 473526
 ```
 
+### Browser
+
+[example](https://github.com/gizmo-ds/totp-wasm/blob/main/examples/browser)
+
+### Node.js
+
+[example](https://github.com/gizmo-ds/totp-wasm/blob/main/examples/node)
+
+### Bun
+
+[example](https://github.com/gizmo-ds/totp-wasm/blob/main/examples/bun)
+
+## Build
+
+Prerequisites
+
+- [Rust](https://www.rust-lang.org)
+- [Node.js](https://nodejs.org)
+
+```bash
+rustup target add wasm32-unknown-unknown
+cargo install --version=0.2.86 wasm-bindgen-cli
+pnpm install
+node scripts/build.mjs
+```
+
+## Runing examples
+
+```bash
+cd examples/browser
+pnpm install
+pnpm dev
+```
+
+# Related Projects
+
+Here are some related projects that you may find useful:
+
+- [totp-wasm-zig](https://github.com/gizmo-ds/totp-wasm-zig): Zig implementation of this project.
+- [UdonOTPLib](https://github.com/gizmo-ds/UdonOTPLib): C# implementation for the VRChat game.
+
 ## License
 
 Code is distributed under [MIT](https://github.com/gizmo-ds/totp-wasm/blob/main/LICENSE) license, feel free to use it in your proprietary projects as well.

@@ -6,11 +6,6 @@ HOTP([RFC 4226](https://tools.ietf.org/html/rfc4226)) & TOTP([RFC 6238](https://
 
 [https://totp-wasm.vercel.app](https://totp-wasm.vercel.app)
 
-## Prerequisites
-
-- [Rust](https://www.rust-lang.org)
-- [Node.js](https://nodejs.org)
-
 ## Usage
 
 ### Deno
@@ -41,6 +36,11 @@ console.log(code)
 [example](./examples/bun)
 
 ## Build
+
+Prerequisites
+
+- [Rust](https://www.rust-lang.org)
+- [Node.js](https://nodejs.org)
 
 ```bash
 rustup target add wasm32-unknown-unknown
