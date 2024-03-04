@@ -40,7 +40,7 @@ console.log(code)
 
 ```bash
 rustup target add wasm32-unknown-unknown
-cargo install --version=0.2.83 wasm-bindgen-cli
+cargo install --version=0.2.86 wasm-bindgen-cli
 pnpm install
 node scripts/build.mjs
 ```
