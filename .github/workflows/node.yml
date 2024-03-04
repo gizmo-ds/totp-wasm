@@ -19,12 +19,12 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8.3.0
+          version: 8.15.4
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 20.11.1
           cache: pnpm
 
       - name: Run tests
